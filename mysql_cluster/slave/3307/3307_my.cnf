@@ -1,0 +1,12 @@
+[mysqld]
+port=3307
+datadir=/data/mysql/3307/data
+socket=/data/mysql/3307/mysql.sock
+pid-file=/data/mysql/3307/mysql.pid
+log-error=/data/mysql/3307/logs/error.log
+
+server-id=2  # 唯一ID，不能重复
+log-bin=mysql-bin
+relay-log=relay-bin
+#read_only=1  # 从库只读
+#super_read_only=1
