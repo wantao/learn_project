@@ -1,0 +1,43 @@
+syntax = "proto3";
+package msg;
+
+// 【包头】所有协议共用
+message Packet {
+    uint32 cmd = 1;          // 协议号
+    uint64 uid = 2;         // 玩家UID
+    bytes body = 3;         // 子协议体
+}
+
+// ---------------------
+// 1001 登录请求 C→S
+// ---------------------
+message LoginReq {
+    string account = 1;     // 账号
+    string token = 2;       // 登录凭证
+}
+
+// 1002 登录返回 S→C
+message LoginAck {
+    int32 code = 1;         // 0=成功
+    string msg = 2;
+    uint64 uid = 3;         // 返回UID
+}
+
+// ---------------------
+// 1003 角色信息请求 C→S
+// ---------------------
+message RoleInfoReq { }
+
+// 1004 角色信息返回 S→C
+message RoleInfoAck {
+    uint64 uid = 1;
+    string name = 2;
+    int32 level = 3;
+    int64 gold = 4;
+    int32 diamond = 5;
+}
+
+// ---------------------
+// 1005 心跳 C↔S
+// ---------------------
+message HeartBeat { }
