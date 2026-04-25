@@ -1,3 +1,4 @@
+systemctl restart mysqld
 echo "11"
 ./master_slave_account.sh
 echo "222"

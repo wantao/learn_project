@@ -8,5 +8,7 @@ log-error=/data/mysql/3307/logs/error.log
 server-id=2  # 唯一ID，不能重复
 log-bin=mysql-bin
 relay-log=relay-bin
+replicate-do-db=test
+replicate-do-db=game_user
 #read_only=1  # 从库只读
 #super_read_only=1
