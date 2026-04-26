@@ -1,0 +1,1 @@
+g++ -o memc_cluster memc_cluster.cpp -lmemcached -pthread

@@ -1,0 +1,27 @@
+连接 Memcached
+    telnet 127.0.0.1 11211
+退出
+    退出连接：ctrl + ] 然后输入 quit 回车
+1. set 存数据
+    set mykey 0 60 5
+    hello
+    说明：
+    mykey：key 名称
+    0：标识（不用改）
+    60：过期秒数
+    5：value 长度（hello 是 5 个字符）
+    成功返回：STORED
+
+2. get 取数据
+    get mykey
+    成功返回：
+    plaintext
+    VALUE mykey 0 5
+    hello
+
+3. delete 删除
+    delete mykey
+    
+4. 查看状态
+    stats
+

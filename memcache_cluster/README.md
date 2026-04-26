@@ -1,0 +1,9 @@
+centos7上4G/4核，mememcache集群搭建与测试
+mememcache常用操作
+    memcache_cmd.txt
+前提需运行脚本，安装必要的软件
+    ./config_base_soft.sh
+编译
+    ./build.sh
+运行结果图
+    result.png
