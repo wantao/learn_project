@@ -1,0 +1,1 @@
+g++ -o game_server game_server.cpp -std=c++11 -pthread
