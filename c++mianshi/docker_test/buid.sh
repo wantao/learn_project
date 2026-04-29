@@ -1,0 +1,1 @@
+g++ -g -o game_server_bin game_server.cpp
