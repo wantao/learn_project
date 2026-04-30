@@ -1,0 +1,1 @@
+g++ -std=c++11 net_optimize.cpp -o net_optimize -g

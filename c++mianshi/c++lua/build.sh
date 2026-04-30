@@ -1,0 +1,1 @@
+g++ -o lua_test main.cpp -llua -std=c++11

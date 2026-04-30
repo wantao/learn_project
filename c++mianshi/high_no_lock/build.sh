@@ -1,0 +1,1 @@
+g++ test.cpp -o game -pthread -std=c++11

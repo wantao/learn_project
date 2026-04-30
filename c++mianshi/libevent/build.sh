@@ -1,0 +1,1 @@
+g++ -o server main.cpp -levent -std=c++11

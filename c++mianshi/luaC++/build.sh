@@ -1,0 +1,1 @@
+g++ main.cpp -o lua_cpp_demo -llua -ldl -std=c++11

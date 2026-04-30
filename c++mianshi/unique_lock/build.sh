@@ -1,0 +1,1 @@
+g++ main.cpp -o game_lock -pthread -std=c++11
