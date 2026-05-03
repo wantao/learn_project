@@ -13,9 +13,9 @@ std::atomic<CalcDamageFunc> g_calc_damage{nullptr};
 static void* g_lib_handle = nullptr;
 
 // 加载指定动态库
+// 加载指定动态库
 bool load_logic_lib(const char* libPath)
 {
-    // RTLD_NOW 立即解析符号，RTLD_GLOBAL 全局符号可见
     void* handle = dlopen(libPath, RTLD_NOW | RTLD_GLOBAL);
     if (!handle)
     {
@@ -23,7 +23,6 @@ bool load_logic_lib(const char* libPath)
         return false;
     }
 
-    // 获取导出函数
     CalcDamageFunc func = (CalcDamageFunc)dlsym(handle, "calculate_damage");
     if (!func)
     {
@@ -32,23 +31,27 @@ bool load_logic_lib(const char* libPath)
         return false;
     }
 
-    // 原子替换：release 保证库初始化完再暴露指针
-    CalcDamageFunc old = g_calc_damage.exchange(func, std::memory_order_release);
+    // 先保存【旧句柄】，再替换全局指针（核心修复）
+    void* old_handle = g_lib_handle;
 
-    // 旧句柄延迟一会再关，给正在执行的请求收尾
-    if (g_lib_handle)
+    // 原子替换函数指针
+    g_calc_damage.exchange(func, std::memory_order_release);
+
+    // 【旧句柄】延迟2秒卸载，绝对安全
+    if (old_handle)
     {
-        std::thread([](){
-            sleep(2);  // 等待2秒，让存量请求跑完
-            dlclose(g_lib_handle);
+        std::thread([old_handle](){  // 捕获旧句柄，不是全局变量！
+            sleep(2);
+            dlclose(old_handle);
         }).detach();
     }
 
+    // 更新全局句柄为新库
     g_lib_handle = handle;
+
     std::cout << "加载逻辑库成功: " << libPath << std::endl;
     return true;
 }
-
 // 模拟战斗业务线程
 void battle_worker(int id)
 {
